@@ -1,0 +1,136 @@
+html, body {
+  font-family: Arial, Helvetica, sans-serif;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-image: url('oil.jpg');
+  background-position: center;
+  background-size: cover;
+  position: relative; 
+}
+
+body::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: rgba(170, 170, 170, 0.65);
+  position: absolute;
+  z-index: -1; 
+}
+
+ .container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 15px;
+ }
+
+.column1 {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-top: 12%;
+  margin-left: 5%;
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: .3px .3px;
+}
+
+.column2 {
+  display: flex;
+  flex-direction: column;
+  flex: 2.6;
+}
+
+h1{
+  font-size: 50px;
+  text-shadow: .3px .3px;
+}
+
+h2{
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 20px;
+  text-align: center;
+}
+
+
+form {
+  margin-left: 25%;
+  margin-right:25%;
+  margin-top: 20%;
+  background-color: rgba(255, 255, 255, .8);
+  padding: 12px 12px 12px 12px;
+  border: 1.5px solid black;
+  border-radius: 8px;
+  box-shadow: 1px 1px 1px;
+}
+
+label {
+  display: block;
+  margin-top: 22px;
+  margin-left: 8px;
+  font-weight: 520;
+  font-size: 20px;
+}
+
+input {
+  display: block;
+  height: 35px;
+  width: 85%;
+  border-radius: 4px;
+  padding: 0 8px;
+  margin-top: 6px;
+  margin-left: 8px;
+  background-color: rgba(255, 255, 255, .01);
+  font-size: 15px;
+  font-weight: 400;
+}
+
+
+input[type=text]:focus {
+   background-color: #dfdfe2;  
+}
+
+input[submit]:invalid {
+   border: 2px solid red;
+}
+
+button {
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 1px solid black;
+  margin-top: 20px;
+  width: 85%;
+  padding: 12px 0;
+  margin-left: 17px;
+  font-family: sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+button:hover{
+  background-color: #dfdfe2;
+  transform: scale(1.02,1.02);
+}
+
+button:active {
+  background-color: #a3a3a3;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+footer{
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+  height: 50px;
+  border: 2px solid black
+}
