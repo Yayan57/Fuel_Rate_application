@@ -1,5 +1,18 @@
 /* styles.css */
 
+header {
+    text-align: right;
+}
+
+#header a {
+    display: inline-block;
+    text-decoration: underline;
+    color: #1f41ff;
+    padding: 0 25px 0 25px;
+    font-size: 1.3em;
+    line-height: 84px;
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
