@@ -1,5 +1,8 @@
 /* styles.css */
 
+/* this sheet is currently being used for everything except loginpage.html 
+    if you need to change something make sure it doesnt mess up the other pages */
+
 header {
     text-align: right;
 }
