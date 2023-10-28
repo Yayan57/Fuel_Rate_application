@@ -17,3 +17,8 @@ CREATE TABLE FuelQuote (
     ppg FLOAT NOT NULL,
     totalPrice FLOAT NOT NULL
 );
+
+CREATE TABLE UserCredentials {
+  id VARCHAR(25) PRIMARY KEY,
+  password VARCHAR(60) NOT NULL
+};
