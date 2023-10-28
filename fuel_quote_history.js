@@ -1,12 +1,42 @@
-// Sample data (you can replace this with actual data from a data source)
-const fuelQuotes = [
-    { gallonsRequested: 55, deliveryAddress: "123 road st.", deliveryDate: "December 26, 2023", suggestedPrice: "$5,403.35" },
-    { gallonsRequested: 755, deliveryAddress: "3511 Howard Mountains Suite 353", deliveryDate: "April 1, 2024", suggestedPrice: "$6.23" },
-    { gallonsRequested: 36, deliveryAddress: "677 Keara Club", deliveryDate: "May 10, 2024", suggestedPrice: "$1,583.35" },
-    { gallonsRequested: 537, deliveryAddress: "6838 Ariane Drives Apt. 484", deliveryDate: "October 16, 2024", suggestedPrice: "$18,880.35" },
-    { gallonsRequested: 664, deliveryAddress: "81237 Beahan Lakes Apt. 067", deliveryDate: "November 18, 2024", suggestedPrice: "$11,737.35" },
-    // Add more data as needed
-];
+const express = require('express')
+const app = express()
+const port = 3000;
+
+app.use(express.static('public'))
+var urlencodedParser = bodyParser.urlencoded({ extended: true })
+
+var mysql = require('mysql');
+var db = mysql.createConnection({
+  host: 'localhost', // Replace with host name
+  user: 'root',      // Replace with database username
+  password: '',      // Replace with database password
+  database: '' // // Replace with database Name
+}); 
+conn.connect(function(err) {
+  if (err) throw err;
+  console.log('Database is connected successfully !');
+});
+module.exports = db;
+
+app.get('/api/fuelQuotes', (req, res) => {
+    const sql = 'SELECT * FROM FuelQuotes';
+    db.query(sql, (err, results) => {
+        if (err) throw err;
+        res.json(results);
+    });
+});
+
+app.listen(port, () => {
+    console.log(`Server started on http://localhost:${port}`);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    fetch('/api/fuelQuotes')
+        .then(response => response.json())
+        .then(data => populateTable(data))
+        .catch(error => console.error('Error fetching data:', error));
+});
+
 
 // Function to populate the table with data
 function populateTable() {
@@ -22,7 +52,7 @@ function populateTable() {
         cell1.innerHTML = quote.gallonsRequested;
         cell2.innerHTML = quote.deliveryAddress;
         cell3.innerHTML = quote.deliveryDate;
-        cell4.innerHTML = quote.suggestedPrice;
+        cell4.innerHTML = `${quote.suggestedPrice.toFixed(2)}`;
     });
 }
 
