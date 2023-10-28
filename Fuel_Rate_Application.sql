@@ -9,7 +9,7 @@ CREATE TABLE clients (
 );
 
 CREATE TABLE FuelQuote (
-    orderID INT PRIMARY KEY,
+    orderID INT AUTO_INCREMENT PRIMARY KEY,
     userID INT NOT NULL,
     gallonsRequested INT NOT NULL,
     deliveryAddress VARCHAR(255) NOT NULL,
