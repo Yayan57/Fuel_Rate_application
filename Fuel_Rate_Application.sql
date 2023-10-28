@@ -14,8 +14,8 @@ CREATE TABLE FuelQuote (
     gallonsRequested INT NOT NULL,
     deliveryAddress VARCHAR(255) NOT NULL,
     deliveryDate DATE NOT NULL,
-    ppg FLOAT NOT NULL,
-    totalPrice FLOAT NOT NULL
+    ppg DECIMAL(10,4) NOT NULL,
+    totalPrice DECIMAL(10,4) NOT NULL
 );
 
 CREATE TABLE UserCredentials {
