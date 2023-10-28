@@ -7,10 +7,10 @@ var urlencodedParser = bodyParser.urlencoded({ extended: true })
 
 var mysql = require('mysql');
 var db = mysql.createConnection({
-  host: 'localhost', // Replace with host name
-  user: 'root',      // Replace with database username
-  password: '',      // Replace with database password
-  database: '' // // Replace with database Name
+  host: 'cosc4353project.mysql.database.azure.com', 
+  user: 'cosc4353admin',      
+  password: 'FuelQuoteProject4353',      
+  database: 'cosc4353project'
 }); 
 conn.connect(function(err) {
   if (err) throw err;
