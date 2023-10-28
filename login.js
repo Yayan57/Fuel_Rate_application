@@ -1,22 +1,45 @@
 const bcrypt = require('bcrypt')
 const express = require('express')
 const app = express()
+const mysql = require("mysql")
 
 app.use(express.json())
 
-//users replace w database
-const users = [];
+const conn = mysql.createConnection({
+  host: 'your_mysql_host',
+  user: 'your_username',
+  password: 'your_password',
+  database: fuel_rate_application
+});
+
+conn.connect(function(err) {
+   if (err) {
+      console.log(err);
+   }
+   else {
+      console.log("Connection established");
+   }
+});
+
 
 app.get('/users', (request, response) => {
   response.json(users);
 })
 
+
 app.post('/register', async (request, response) => {
   try{
-    const hashedpw = await bcrypt.hash(request.body.password, 10)
-    const user = { name: request.body.name, password: hashedpw }
+    const hashedpw = await bcrypt.hash(request.body.password, 10);
+    const user = { id: request.body.name, password: hashedpw };
     
-    users.push(user)
+    conn.query("INSERT INTO UserCredentials SET ?", user, function(err, result){
+      if(err){
+        console.log(err);
+      }
+      else{
+        console.log("Inserted " + result.affectedRows + " row");
+      }
+    });
     
     response.status(201).send('User registration success')
   }
@@ -25,22 +48,29 @@ app.post('/register', async (request, response) => {
   }
 })
 
+
 app.post('/login', async (request, response) => {
-  const user = users.find(user => user.name = request.body.name)
-  if(user == null){
-    return response.status(400).send('Username not found')
-  }
-  try{
-    const isMatch = await bcrypt.compare(request.body.password, user.password)
-    if(isMatch){
-      response.send('Login successful')
+  const username = request.body.name;
+
+  conn.query("SELECT * FROM UserCredentials WHERE id = ?", [username], function(err, result){
+    if(err){
+      console.log(err);
     }
     else{
-      response.send('Login failed')
+      if(result.length > 0){
+        const user = result[0];
+        if(bcrypt.compareSync(request.body.password, user.password)){
+          response.status(200).send('Login Successful');
+        }
+        else{
+          response.status(401).send('Login Failed');
+        }
+      }
+      else{
+        response.status(401).send('Login Failed');
+      }
     }
-  }
-  catch{
-    response.status(500).send()
-  }
-})
+  });
+});
 
+app.listen(3000);
