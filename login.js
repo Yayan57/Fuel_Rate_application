@@ -12,7 +12,7 @@ const conn = mysql.createConnection({
   password:"FuelQuoteProject4353", 
   database:"fuel_rate_application", 
   port:3306, 
-  ssl:{ca:fs.readFileSync("/DigiCertGlobalRootG2.crt.pem")}
+  ssl:{ca:fs.readFileSync("{ca-cert filename}")}
 });
 
 conn.connect(function(err){
