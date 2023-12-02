@@ -12,14 +12,13 @@
     <div class="container">
       <div class="column1">
         <div style="text-align: center;">
-          <!--Can add more to the description like company motto or something-->
-          <h1>About Us</h1>
+
+          <h1>Welcome to Fuel Quote!</h1>
           We sell the highest quality gasoline in bulk shipped right to your location! Trusted nationwide by many gas stations!
         </div>
       </div>
       <div class="column2">
-        <!-- attach account page to form-->
-        <form action="accountpage" method="POST">
+        <form action="/login" method="POST" onsubmit="return validateForm()">
       <h2>Login</h2>
       <p>
         <label for="username">Username</label>
@@ -27,17 +26,43 @@
       </p>
       <p>
         <label for="password">Password</label>
-        <input type="text" name="password" id="password" placeholder="Password"/>
+        <input type="password" name="password" id="password" placeholder="Password"/>
       </p>
+      <div id="error-message"></div>
       <button type="submit">Login</button>
-      <div style="padding-top: 16px; font-size: 16px; margin-left: 8px; margin-bottom: 5px;">
-        <!--attach registration form to this link-->
-        <a href="registration-form">New user? Register here</a>
+      <div id="registration">
+        <a href="/Client_Registration">New user? Register here</a>
       </div>
     </form>
       </div>
     </div>
 </body>
-<!-- <footer>group 15</footer>
-   -->
+
+  <script>
+    function validateForm(){
+      var username = document.getElementById('username');
+      var password = document.getElementById('password');
+      var error = document.getElementById('error-message');
+
+      error.innerHTML = '';
+      
+      if(username.value.trim() !== username.value || password.value.trim() !== password.value){
+        error.innerHTML = 'Username or Password is in the wrong format';
+        return false;
+      }
+      
+      if(!/^[a-zA-Z0-9\-_\.]+$/.test(username.value)){
+        error.innerHTML = 'Invalid username. Only letters, numbers, dashes, underscores, or dots.';
+        return false;
+      }
+      
+      if(password.value.length < 8){
+        error.innerHTML = 'Password should be at least 8 characters long.';
+        return false;
+      }
+      
+      return true;
+    }
+  </script>
+  
 </html>
