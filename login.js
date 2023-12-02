@@ -4,25 +4,39 @@ const app = express();
 const mysql = require("mysql");
 const session = require('express-session');
 const crypto = require('crypto');
+const fs = require('fs');
+const MySQLStore = require('express-mysql-session')(session);
 
-const secret = crypto.randomBytes(32).toString('hex');
+const secret = process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex');
+
+const sessionStore = new MySQLStore({
+  host: "cosc4353project.mysql.database.azure.com",
+  user: "cosc4353admin",
+  password: "FuelQuoteProject4353",
+  database: "fuel_rate_application",
+  port: 3306,
+  ssl: { ca: fs.readFileSync("{ca-cert filename}") }
+}, conn);
+
+const conn = mysql.createConnection({
+  host: "cosc4353project.mysql.database.azure.com",
+  user: "cosc4353admin",
+  password: "FuelQuoteProject4353",
+  database: "fuel_rate_application",
+  port: 3306,
+  ssl: { ca: fs.readFileSync("{ca-cert filename}") }
+});
 
 app.use(session({
   secret: secret,
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: true,
+  store: sessionStore
 }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const conn = mysql.createConnection({
-  host:"cosc4353project.mysql.database.azure.com", 
-  user:"cosc4353admin", 
-  password:"FuelQuoteProject4353", 
-  database:"fuel_rate_application", 
-  port:3306, 
-  ssl:{ca:fs.readFileSync("{ca-cert filename}")}
-});
 
 conn.connect(function(err){
   if(err){
@@ -97,8 +111,8 @@ else{
 function requireLogin(request, response, next) {
   if(request.session.loggedin){
     next();
-  }else
-  {
+  }
+  else{
     response.redirect('/login');
   }
 }
