@@ -36,12 +36,12 @@ app.listen(port, function() {
 }); 
 
 app.post('/orders', urlencodedParser, function (req, res) {
-    var userid = req.user.username
+    var userid = user//req.user.username
     var gallons = req.body.gallons_requested;
     var address = req.body.delivery_address;
     var date = req.body.delivery_date;
-    var ppg = req.body.price_per_gallon;
-    var total = req.body.total_amount;
+    var ppg = 5//req.body.price_per_gallon;
+    var total = 20//req.body.total_amount;
     if (!username || !gallons || !address || !date || !ppg || !total) {
       res.status(400).json({ message: 'Incomplete order request' });
     } else {
