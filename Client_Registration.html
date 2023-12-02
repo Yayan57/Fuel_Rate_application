@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>Client Registration</h1>
-    <form id="registrationForm" action="/Client_Registration" method="post">
+    <form id="registrationForm" action="/Client_Registration" method="post" onsubmit="return validateForm()">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
         <br>
@@ -15,5 +15,33 @@
         <br>
         <input type="submit" value="Register">
     </form>
+
+     <script>
+      function validateForm(){
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+
+        if(username !== username.trim() || password !== password.trim()){
+          alert('Cant have leading or trailing spaces');
+          return false;
+        }
+        
+        if(username.length < 8){
+          alert('Username must be at least 8 characters long.');
+          return false;
+        }
+        
+        if(!/^[a-zA-Z0-9\-_\.]+$/.test(username)){
+          alert('Invalid format. Use only letters, numbers, dashes, underscores, or dots.');
+          return false;
+        }
+        
+        if(password.length < 8){
+          alert('Password must be at least 8 characters long.');
+          return false;
+        }
+        return true;
+      }
+    </script>
 </body>
 </html>
