@@ -10,7 +10,9 @@ var db = mysql.createConnection({
   host: 'cosc4353project.mysql.database.azure.com', // Replace with host name
   user: 'cosc4353admin',      // Replace with database username
   password: 'FuelQuoteProject4353',      // Replace with database password
-  database: 'fuel_rate_application' // // Replace with database Name
+  database: 'fuel_rate_application', // // Replace with database Name
+  port:3306,
+  ssl:{ca:fs.readFileSync("DigiCertGlobalRootG2.crt.pem")}
 }); 
 conn.connect(function(err) {
   if (err) throw err;
