@@ -2,7 +2,16 @@
 <html>
     <script>
         function calculate_ppg(gallons) {
-            var total = gallons.value * 1.5;
+            var requestedFactor = 0.03;
+            if (gallons.value > 1000) requestedFactor = 0.02;
+
+            var historyFactor = 0.01;
+            var locationFactor = 0.02;
+            
+            var margin = 1.50 * (locationFactor - historyFactor + requestedFactor + 0.10);
+            var ppg = 1.50 * margin;
+            var total = ppg * gallons.value;
+            document.getElementById("price_per_gallon").textContent=ppg;
             document.getElementById("total_amount").textContent=total;
         }
     </script>
